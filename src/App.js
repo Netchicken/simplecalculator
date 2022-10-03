@@ -1,23 +1,130 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { useState } from "react";
+import CreateDigits from "./Components/digitbutton";
 
 function App() {
+  const [calculation, setCalculation] = useState("");
+  const [output, setOutput] = useState("");
+  const actions = ["/", "*", "+", "-", "."];
+
+  const updateCalculation = (value) => {
+    if (
+      actions.includes(value) & (calculation === "") ||
+      actions.includes(value) & actions.includes(calculation.slice(-1))
+    ) {
+      return;
+    }
+    setCalculation(calculation + value);
+
+    if (!actions.includes(value)) {
+      setOutput(eval(calculation + value).toString());
+    }
+  };
+
+  const calculate = () => {
+    setCalculation(eval(calculation).toString());
+  };
+
+  const clear = () => {
+    if (calculation === "") {
+      return;
+    }
+    const value = calculation.slice(0, -1);
+    setCalculation(value);
+  };
+
+  // const createDigits = () => {
+  //   const digits = []; //create an empty array
+
+  //   for (let i = 1; i < 10; i++) {
+  //     digits.push(  //add new elements to the array
+  //       <button onClick={() => updateCalculation(i.toString())} key={i}>
+  //         {i}
+  //       </button>
+  //     );
+  //   }
+  //   return digits;
+  // };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <center>
+        {" "}
+        <h1> React Calculator With React Hooks</h1>
+      </center>
+
+      <div className='calc-grid'>
+        <div className='output'>
+          {calculation || "0"}
+          {output ? <span className='preRes'>{output}</span> : ""}
+        </div>
+
+        <div>
+          <div className='buttonGrid'>
+            <button
+              onClick={() => {
+                updateCalculation("/");
+              }}
+            >
+              /
+            </button>
+            <button
+              onClick={() => {
+                updateCalculation("*");
+              }}
+            >
+              *
+            </button>
+            <button
+              onClick={() => {
+                updateCalculation("+");
+              }}
+            >
+              +
+            </button>
+            <button
+              onClick={() => {
+                updateCalculation("-");
+              }}
+            >
+              -
+            </button>
+
+            <button onClick={clear}>
+              {" "}
+              <img
+                width={40}
+                height={40}
+                src='https://cdn-icons-png.flaticon.com/512/159/159805.png'
+              />
+            </button>
+          </div>
+
+          <div className='buttonGrid'> </div>
+          <div className='digits'>
+            {/* {createDigits()} */}
+            <CreateDigits updateCalculation={updateCalculation} />
+
+            <button
+              onClick={() => {
+                updateCalculation(".");
+              }}
+            >
+              .
+            </button>
+
+            <button
+              onClick={() => {
+                updateCalculation("0");
+              }}
+            >
+              0
+            </button>
+
+            <button onClick={calculate}>=</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
