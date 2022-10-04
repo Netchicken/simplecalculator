@@ -43,7 +43,7 @@ function App() {
   return (
     <div>
       <center>
-        <h1> React Calculator</h1>
+        <h1> ReactJS Calculator</h1>
       </center>
       <div className='calc-grid'>
         <div className='output'>
