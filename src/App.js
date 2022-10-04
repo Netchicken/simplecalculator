@@ -8,20 +8,20 @@ function App() {
   const [output, setOutput] = useState("");
   const actionsArray = ["/", "*", "+", "-", "Del", "=", "."];
 
+  //runs the calculation on each button click
   const updateCalculation = (value) => {
     console.log("updateCalculation  ", value + " " + actionsArray[4]);
+
+    //if the value is a = sign, then calculate the result
     if (value == actionsArray[5]) {
       setCalculation(eval(calculation).toString());
       return;
     }
-
-    if (value == actionsArray[4]) {
-      if (calculation === "") {
-        return;
-      }
-      const res = calculation.slice(0, -1); //removes the last element from the string
-      console.log("line 17", res);
-      setCalculation(res);
+    //if the value is a Del sign, then delete the last character
+    if (value == actionsArray[4] && calculation != "") {
+      const result = calculation.slice(0, -1); //removes the last element from the string
+      console.log("updateCalculation DEL", result);
+      setCalculation(result);
       return;
     } else if (
       //if the array includes the value and the calculation is empty or the last character is an action
@@ -31,16 +31,14 @@ function App() {
     ) {
       return; //don't do anything and stop the function
     }
-    setCalculation(calculation + value);
 
+    //finally add the value to the calculation
+    setCalculation(calculation + value);
+    //if the value is NOT in the array add it to the calculation
     if (!actionsArray.includes(value)) {
       setOutput(eval(calculation + value).toString());
     }
   };
-
-  // const calculate = () => {
-  //   setCalculation(eval(calculation).toString());
-  // };
 
   return (
     <div>
@@ -60,23 +58,6 @@ function App() {
 
         <div className='digits'>
           <CreateDigits updateCalculation={updateCalculation} />
-
-          {/* <button
-            onClick={() => {
-              updateCalculation(".");
-            }}
-          >
-            .
-          </button>
-
-          <button
-            onClick={() => {
-              updateCalculation("0");
-            }}
-          >
-            0
-          </button>*/}
-          {/* <button onClick={calculate}>=</button> */}
         </div>
       </div>
     </div>
