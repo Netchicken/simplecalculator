@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import CreateDigits from "./Components/digitbutton";
+import CalcButtons from "./Components/calcbuttons";
 
 function App() {
   const [calculation, setCalculation] = useState("");
@@ -33,33 +34,49 @@ function App() {
     setCalculation(value);
   };
 
-  // const createDigits = () => {
-  //   const digits = []; //create an empty array
-
-  //   for (let i = 1; i < 10; i++) {
-  //     digits.push(  //add new elements to the array
-  //       <button onClick={() => updateCalculation(i.toString())} key={i}>
-  //         {i}
-  //       </button>
-  //     );
-  //   }
-  //   return digits;
-  // };
-
   return (
     <div>
       <center>
-        {" "}
         <h1> React Calculator With React Hooks</h1>
       </center>
-
       <div className='calc-grid'>
         <div className='output'>
           {calculation || "0"}
           {output ? <span className='preRes'>{output}</span> : ""}
         </div>
+        <div className='buttonGrid'>
+          <CalcButtons updateCalculation={updateCalculation} clear={clear} />
+        </div>
+          <div className='digits'>
+            <CreateDigits updateCalculation={updateCalculation} />
 
-        <div>
+            <button
+              onClick={() => {
+                updateCalculation(".");
+              }}
+            >
+              .
+            </button>
+
+            <button
+              onClick={() => {
+                updateCalculation("0");
+              }}
+            >
+              0
+            </button>
+            <button onClick={calculate}>=</button>
+          </div>
+        </div>
+      </div>
+      
+  );
+}
+
+export default App;
+
+/* {
+  <div>
           <div className='buttonGrid'>
             <button
               onClick={() => {
@@ -98,35 +115,19 @@ function App() {
                 src='https://cdn-icons-png.flaticon.com/512/159/159805.png'
               />
             </button>
-          </div>
+          </div> 
+ }
 
-          <div className='buttonGrid'> </div>
-          <div className='digits'>
-            {/* {createDigits()} */}
-            <CreateDigits updateCalculation={updateCalculation} />
+// const createDigits = () => {
+  //   const digits = []; //create an empty array
 
-            <button
-              onClick={() => {
-                updateCalculation(".");
-              }}
-            >
-              .
-            </button>
-
-            <button
-              onClick={() => {
-                updateCalculation("0");
-              }}
-            >
-              0
-            </button>
-
-            <button onClick={calculate}>=</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export default App;
+  //   for (let i = 1; i < 10; i++) {
+  //     digits.push(  //add new elements to the array
+  //       <button onClick={() => updateCalculation(i.toString())} key={i}>
+  //         {i}
+  //       </button>
+  //     );
+  //   }
+  //   return digits;
+  // };
+*/
