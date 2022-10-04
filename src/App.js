@@ -6,18 +6,29 @@ import CalcButtons from "./Components/calcbuttons";
 function App() {
   const [calculation, setCalculation] = useState("");
   const [output, setOutput] = useState("");
-  const actions = ["/", "*", "+", "-", "."];
+  const actionsArray = ["/", "*", "+", "-", "Del", "."];
 
   const updateCalculation = (value) => {
-    if (
-      actions.includes(value) & (calculation === "") ||
-      actions.includes(value) & actions.includes(calculation.slice(-1))
-    ) {
+    console.log("updateCalculation  ", value + " " + actionsArray[4]);
+    if (value == actionsArray[4]) {
+      if (calculation === "") {
+        return;
+      }
+      const res = calculation.slice(0, -1); //removes the last element from the string
+      console.log("line 17", res);
+      setCalculation(res);
       return;
+    } else if (
+      //if the array includes the value and the calculation is empty or the last character is an action
+      actionsArray.includes(value) & (calculation === "") ||
+      actionsArray.includes(value) &
+        actionsArray.includes(calculation.slice(-1))
+    ) {
+      return; //don't do anything and stop the function
     }
     setCalculation(calculation + value);
 
-    if (!actions.includes(value)) {
+    if (!actionsArray.includes(value)) {
       setOutput(eval(calculation + value).toString());
     }
   };
@@ -26,27 +37,30 @@ function App() {
     setCalculation(eval(calculation).toString());
   };
 
-  const clear = () => {
-    if (calculation === "") {
-      return;
-    }
-    const value = calculation.slice(0, -1);
-    setCalculation(value);
-  };
+  // const clear = () => {
+  //   if (calculation === "") {
+  //     return;
+  //   }
+  //   const value = calculation.slice(0, -1); //removes the last element from the string
+  //   setCalculation(value);
+  // };
 
   return (
     <div>
       <center>
-        <h1> React Calculator With React Hooks</h1>
+        <h1> React Calculator</h1>
       </center>
       <div className='calc-grid'>
         <div className='output'>
           {calculation || "0"}
           {output ? <span className='preRes'>{output}</span> : ""}
         </div>
-        {/* <div className='buttonGrid'> */}
-        <CalcButtons updateCalculation={updateCalculation} clear={clear} />
-        {/* </div> */}
+
+        <CalcButtons
+          updateCalculation={updateCalculation}
+          actionsArray={actionsArray}
+        />
+
         <div className='digits'>
           <CreateDigits updateCalculation={updateCalculation} />
 
@@ -73,60 +87,3 @@ function App() {
 }
 
 export default App;
-
-/* {
-  <div>
-          <div className='buttonGrid'>
-            <button
-              onClick={() => {
-                updateCalculation("/");
-              }}
-            >
-              /
-            </button>
-            <button
-              onClick={() => {
-                updateCalculation("*");
-              }}
-            >
-              *
-            </button>
-            <button
-              onClick={() => {
-                updateCalculation("+");
-              }}
-            >
-              +
-            </button>
-            <button
-              onClick={() => {
-                updateCalculation("-");
-              }}
-            >
-              -
-            </button>
-
-            <button onClick={clear}>
-              {" "}
-              <img
-                width={40}
-                height={40}
-                src='https://cdn-icons-png.flaticon.com/512/159/159805.png'
-              />
-            </button>
-          </div> 
- }
-
-// const createDigits = () => {
-  //   const digits = []; //create an empty array
-
-  //   for (let i = 1; i < 10; i++) {
-  //     digits.push(  //add new elements to the array
-  //       <button onClick={() => updateCalculation(i.toString())} key={i}>
-  //         {i}
-  //       </button>
-  //     );
-  //   }
-  //   return digits;
-  // };
-*/
