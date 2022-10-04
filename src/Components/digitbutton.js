@@ -9,6 +9,26 @@ function CreateDigits(props) {
       </button>
     );
   }
-  return digits;
+  return (
+    <div>
+      {digits}
+      <button
+        onClick={() => {
+          props.updateCalculation(".");
+        }}
+      >
+        .
+      </button>
+
+      <button
+        onClick={() => {
+          props.updateCalculation("0");
+        }}
+      >
+        0
+      </button>
+      {/* <button onClick={calculate}>=</button> */}
+    </div>
+  );
 }
 export default CreateDigits;

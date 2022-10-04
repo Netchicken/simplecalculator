@@ -6,10 +6,15 @@ import CalcButtons from "./Components/calcbuttons";
 function App() {
   const [calculation, setCalculation] = useState("");
   const [output, setOutput] = useState("");
-  const actionsArray = ["/", "*", "+", "-", "Del", "."];
+  const actionsArray = ["/", "*", "+", "-", "Del", "=", "."];
 
   const updateCalculation = (value) => {
     console.log("updateCalculation  ", value + " " + actionsArray[4]);
+    if (value == actionsArray[5]) {
+      setCalculation(eval(calculation).toString());
+      return;
+    }
+
     if (value == actionsArray[4]) {
       if (calculation === "") {
         return;
@@ -33,16 +38,8 @@ function App() {
     }
   };
 
-  const calculate = () => {
-    setCalculation(eval(calculation).toString());
-  };
-
-  // const clear = () => {
-  //   if (calculation === "") {
-  //     return;
-  //   }
-  //   const value = calculation.slice(0, -1); //removes the last element from the string
-  //   setCalculation(value);
+  // const calculate = () => {
+  //   setCalculation(eval(calculation).toString());
   // };
 
   return (
@@ -64,7 +61,7 @@ function App() {
         <div className='digits'>
           <CreateDigits updateCalculation={updateCalculation} />
 
-          <button
+          {/* <button
             onClick={() => {
               updateCalculation(".");
             }}
@@ -78,8 +75,8 @@ function App() {
             }}
           >
             0
-          </button>
-          <button onClick={calculate}>=</button>
+          </button>*/}
+          {/* <button onClick={calculate}>=</button> */}
         </div>
       </div>
     </div>
