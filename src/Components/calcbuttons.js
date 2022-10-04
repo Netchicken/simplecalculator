@@ -31,7 +31,6 @@ function CalcButtons(props) {
       </button>
 
       <button onClick={props.clear}>
-        {" "}
         <img
           width={40}
           height={40}

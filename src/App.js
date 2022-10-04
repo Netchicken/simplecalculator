@@ -44,32 +44,31 @@ function App() {
           {calculation || "0"}
           {output ? <span className='preRes'>{output}</span> : ""}
         </div>
-        <div className='buttonGrid'>
-          <CalcButtons updateCalculation={updateCalculation} clear={clear} />
-        </div>
-          <div className='digits'>
-            <CreateDigits updateCalculation={updateCalculation} />
+        {/* <div className='buttonGrid'> */}
+        <CalcButtons updateCalculation={updateCalculation} clear={clear} />
+        {/* </div> */}
+        <div className='digits'>
+          <CreateDigits updateCalculation={updateCalculation} />
 
-            <button
-              onClick={() => {
-                updateCalculation(".");
-              }}
-            >
-              .
-            </button>
+          <button
+            onClick={() => {
+              updateCalculation(".");
+            }}
+          >
+            .
+          </button>
 
-            <button
-              onClick={() => {
-                updateCalculation("0");
-              }}
-            >
-              0
-            </button>
-            <button onClick={calculate}>=</button>
-          </div>
+          <button
+            onClick={() => {
+              updateCalculation("0");
+            }}
+          >
+            0
+          </button>
+          <button onClick={calculate}>=</button>
         </div>
       </div>
-      
+    </div>
   );
 }
 
