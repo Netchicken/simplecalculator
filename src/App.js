@@ -6,14 +6,19 @@ import CalcButtons from "./Components/calcbuttons";
 function App() {
   const [calculation, setCalculation] = useState("");
   const [output, setOutput] = useState("");
-  const actionsArray = ["/", "*", "+", "-", "Del", "=", "."];
+  const actionsArray = ["/", "*", "+", "-", "Del", "=", ".", "!"];
 
   //runs the calculation on each button click
   const updateCalculation = (value) => {
-    console.log("updateCalculation  ", value + " " + actionsArray[4]);
+    console.log("updateCalculation  ", value);
 
+    if (value == actionsArray.includes("!")) {
+      setCalculation(eval(calculation).toString());
+      return;
+    }
     //if the value is a = sign, then calculate the result
-    if (value == actionsArray[5]) {
+    if (value === actionsArray.includes("=")) {
+      console.log("should be = updateCalculation =", value);
       setCalculation(eval(calculation).toString());
       return;
     }

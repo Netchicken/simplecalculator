@@ -1,3 +1,4 @@
+import swal from "sweetalert";
 function CreateDigits(props) {
   const digits = []; //create an empty array
 
@@ -27,7 +28,13 @@ function CreateDigits(props) {
       >
         0
       </button>
-      {/* <button onClick={calculate}>=</button> */}
+      <button
+        onClick={() => {
+          swal("Don't click this button!", "I just needed to fill this hole");
+        }}
+      >
+        ~
+      </button>
     </div>
   );
 }
