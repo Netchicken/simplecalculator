@@ -1,4 +1,7 @@
-import swal from "sweetalert";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+const MySwal = withReactContent(Swal);
+
 function CreateDigits(props) {
   const digits = []; //create an empty array
 
@@ -30,7 +33,19 @@ function CreateDigits(props) {
       </button>
       <button
         onClick={() => {
-          swal("Don't click this button!", "I just needed to fill this hole");
+          Swal.fire({
+            title: "Don't click this button",
+            text: "This is just to cover up the empty place",
+            icon: "success",
+            denyButtonText: "I'm sorry",
+
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
         }}
       >
         ~
