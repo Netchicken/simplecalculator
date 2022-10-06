@@ -41,6 +41,7 @@ function App() {
     setCalculation(calculation + value);
     //if the value is NOT in the array add it to the calculation
     if (!actionsArray.includes(value)) {
+      console.log("number added", value);
       setOutput(eval(calculation + value).toString());
     }
   };
